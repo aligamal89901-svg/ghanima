@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Light Theme Colors
-  static const Color primary = Color(0xFF2D5A3D); // أخضر تموينات عميق
-  static const Color secondary = Color(0xFFD97706); // كهرماني للتفاصيل
-  static const Color background = Color(0xFFFAF7F2); // كريمي دافئ
+  // Light Theme Colors — مستوحاة من شعار تموينات غنيمة
+  static const Color primary = Color(0xFFC2185B); // ماجنتا عميق (لون الهوية)
+  static const Color primaryDark = Color(0xFF8E1043); // للتدرجات
+  static const Color secondary = Color(0xFFD97706); // كهرماني للشارات
+  static const Color background = Color(0xFFFDF6F8); // وردي فاتح جدًا هادئ
   static const Color surface = Color(0xFFFFFFFF); // أبيض نقي
   static const Color textPrimary = Color(0xFF1A1A1A); // نص أساسي
   static const Color textSecondary = Color(0xFF6B7280); // نص ثانوي

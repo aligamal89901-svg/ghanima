@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import '../../../../core/app_constants.dart';
 import '../../../../core/theme/app_theme.dart';
-import 'placeholder_screen.dart';
+import '../../../cart/cart_controller.dart';
+import '../../../home/presentation/screens/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  final CartController cart;
+
+  const SplashScreen({super.key, required this.cart});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -37,12 +41,11 @@ class _SplashScreenState extends State<SplashScreen>
 
     _controller.forward();
 
-    // الانتقال للشاشة التالية بعد 2.4 ثانية
     Future.delayed(const Duration(milliseconds: 2400), () {
       if (mounted) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => const PlaceholderScreen(),
+            builder: (context) => HomeScreen(cart: widget.cart),
           ),
         );
       }
@@ -66,7 +69,6 @@ class _SplashScreenState extends State<SplashScreen>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Animation
                 FadeTransition(
                   opacity: _fadeAnimation,
                   child: SizedBox(
@@ -80,14 +82,12 @@ class _SplashScreenState extends State<SplashScreen>
                   ),
                 ),
                 const SizedBox(height: 32),
-
-                // اسم التطبيق
                 FadeTransition(
                   opacity: _fadeAnimation,
                   child: SlideTransition(
                     position: _slideAnimation,
                     child: const Text(
-                      'تموينات غنيمة',
+                      AppConstants.storeName,
                       style: TextStyle(
                         fontFamily: AppTextStyles.fontFamily,
                         fontSize: 32,
@@ -100,12 +100,10 @@ class _SplashScreenState extends State<SplashScreen>
                   ),
                 ),
                 const SizedBox(height: 12),
-
-                // العبارة القصيرة
                 FadeTransition(
                   opacity: _fadeAnimation,
                   child: const Text(
-                    'كل اللي تحتاجه، أقرب لك.',
+                    AppConstants.storeTagline,
                     style: TextStyle(
                       fontFamily: AppTextStyles.fontFamily,
                       fontSize: 16,

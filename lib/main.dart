@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
+import 'core/app_constants.dart';
 import 'core/theme/app_theme.dart';
+import 'features/cart/cart_controller.dart';
 import 'features/splash/presentation/screens/splash_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final CartController cart = CartController();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'تموينات غنيمة',
+      title: AppConstants.storeName,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      home: const SplashScreen(),
+      home: SplashScreen(cart: cart),
     );
   }
 }
