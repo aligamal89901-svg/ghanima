@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'core/app_constants.dart';
 import 'core/theme/app_theme.dart';
 import 'features/cart/cart_controller.dart';
+import 'features/favorites/favorite_controller.dart';
 import 'features/splash/presentation/screens/splash_screen.dart';
 
 void main() {
@@ -12,6 +13,7 @@ class MyApp extends StatelessWidget {
   MyApp({super.key});
 
   final CartController cart = CartController();
+  final FavoriteController favorites = FavoriteController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
       title: AppConstants.storeName,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      home: SplashScreen(cart: cart),
+      home: SplashScreen(cart: cart, favorites: favorites),
     );
   }
 }

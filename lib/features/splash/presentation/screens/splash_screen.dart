@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import '../../../../core/app_constants.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../auth/presentation/screens/auth_screen.dart';
 import '../../../cart/cart_controller.dart';
-import '../../../home/presentation/screens/home_screen.dart';
+import '../../../favorites/favorite_controller.dart';
 
 class SplashScreen extends StatefulWidget {
   final CartController cart;
+  final FavoriteController favorites;
 
-  const SplashScreen({super.key, required this.cart});
+  const SplashScreen({super.key, required this.cart, required this.favorites});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -41,11 +43,14 @@ class _SplashScreenState extends State<SplashScreen>
 
     _controller.forward();
 
-    Future.delayed(const Duration(milliseconds: 2400), () {
+    Future.delayed(const Duration(milliseconds: 3000), () {
       if (mounted) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => HomeScreen(cart: widget.cart),
+            builder: (context) => AuthScreen(
+              cart: widget.cart,
+              favorites: widget.favorites,
+            ),
           ),
         );
       }
@@ -72,8 +77,8 @@ class _SplashScreenState extends State<SplashScreen>
                 FadeTransition(
                   opacity: _fadeAnimation,
                   child: SizedBox(
-                    width: 200,
-                    height: 200,
+                    width: 280,
+                    height: 280,
                     child: Lottie.asset(
                       'assets/animations/splash/splash_animation.json',
                       fit: BoxFit.contain,
@@ -81,7 +86,7 @@ class _SplashScreenState extends State<SplashScreen>
                     ),
                   ),
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: 40),
                 FadeTransition(
                   opacity: _fadeAnimation,
                   child: SlideTransition(
@@ -90,7 +95,7 @@ class _SplashScreenState extends State<SplashScreen>
                       AppConstants.storeName,
                       style: TextStyle(
                         fontFamily: AppTextStyles.fontFamily,
-                        fontSize: 32,
+                        fontSize: 36,
                         fontWeight: FontWeight.w700,
                         color: AppColors.primary,
                         height: 1.2,
@@ -99,14 +104,14 @@ class _SplashScreenState extends State<SplashScreen>
                     ),
                   ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
                 FadeTransition(
                   opacity: _fadeAnimation,
                   child: const Text(
                     AppConstants.storeTagline,
                     style: TextStyle(
                       fontFamily: AppTextStyles.fontFamily,
-                      fontSize: 16,
+                      fontSize: 18,
                       fontWeight: FontWeight.w400,
                       color: AppColors.textSecondary,
                       height: 1.5,

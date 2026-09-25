@@ -26,11 +26,16 @@ class CartController extends ChangeNotifier {
   }
 
   void add(Product product) {
+    addQuantity(product, 1);
+  }
+
+  void addQuantity(Product product, int quantity) {
+    if (quantity <= 0) return;
     final item = _items.where((i) => i.product.id == product.id).firstOrNull;
     if (item == null) {
-      _items.add(CartItem(product: product));
+      _items.add(CartItem(product: product, quantity: quantity));
     } else {
-      item.quantity += 1;
+      item.quantity += quantity;
     }
     notifyListeners();
   }
@@ -43,6 +48,12 @@ class CartController extends ChangeNotifier {
     } else {
       item.quantity -= 1;
     }
+    notifyListeners();
+  }
+
+  void clear() {
+    if (_items.isEmpty) return;
+    _items.clear();
     notifyListeners();
   }
 }

@@ -13,13 +13,57 @@ class MockData {
   ];
 
   static const List<Product> products = [
-    Product(id: 'p1', name: 'طماطم طازجة', price: 6.5, unit: 'لكل كجم', categoryId: 'veg'),
-    Product(id: 'p4', name: 'خبز بر عربي', price: 2.5, unit: 'ربطة', categoryId: 'bakery'),
+    Product(
+      id: 'p1',
+      name: 'طماطم طازجة',
+      price: 6.5,
+      unit: 'لكل كجم',
+      categoryId: 'veg',
+      description: 'طماطم بلدية طازجة تصل يوميًا، متماسكة ومناسبة للسلطات والطبخ.',
+    ),
+    Product(
+      id: 'p4',
+      name: 'خبز بر عربي',
+      price: 2.5,
+      unit: 'ربطة',
+      categoryId: 'bakery',
+      description: 'خبز بر طازج يُخبز عدة مرات يوميًا، طري ومناسب للفطور والعشاء.',
+    ),
   ];
 
-  static const List<Offer> offers = [
-    Offer(id: 'o1', title: 'عرض الأسبوع', subtitle: 'خضار اليوم بأسعار مخفضة', badge: 'خصم 20%'),
-    Offer(id: 'o2', title: 'خبز طازج', subtitle: 'اشترِ ربطتين والثالثة هدية', badge: '2+1'),
-    Offer(id: 'o3', title: 'ركن الألبان', subtitle: 'أسعار خاصة على الأجبان', badge: 'خصم 15%'),
+  static final List<Offer> offers = [
+    Offer(
+      id: 'o1',
+      title: 'عرض اليوم: الألبان',
+      subtitle: 'خصم 20% على جميع الألبان الطازجة حتى إغلاق الفترة المسائية.',
+      badge: 'عرض اليوم',
+      discountPercent: 20,
+      categoryId: 'dairy',
+      colorStart: Color(0xFF2E9E63),
+      colorEnd: Color(0xFF1E6E42),
+      endAt: DateTime.now().add(const Duration(hours: 8)),
+    ),
+    Offer(
+      id: 'o2',
+      title: 'الساعة الذهبية للمخبوزات',
+      subtitle: 'خصم 25% على كل المخبوزات — لساعات محدودة فقط اليوم.',
+      badge: 'عرض قوي',
+      discountPercent: 25,
+      categoryId: 'bakery',
+      colorStart: Color(0xFFE8833A),
+      colorEnd: Color(0xFFC2571B),
+      endAt: DateTime.now().add(const Duration(hours: 1, minutes: 58)),
+    ),
+    Offer(
+      id: 'o3',
+      title: 'خضار الأسبوع',
+      subtitle: 'أسعار مخفضة على خضار اليوم المختارة حتى نفاد الكمية.',
+      badge: 'ينتهي قريبًا',
+      discountPercent: 15,
+      categoryId: 'veg',
+      colorStart: Color(0xFFC2185B),
+      colorEnd: Color(0xFF8E1043),
+      endAt: DateTime.now().add(const Duration(hours: 25)),
+    ),
   ];
 }
