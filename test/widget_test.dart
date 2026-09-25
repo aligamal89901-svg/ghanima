@@ -1,30 +1,25 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:ghanima/main.dart';
+import 'package:ghanima/features/splash/presentation/screens/placeholder_screen.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('Splash shows brand name and tagline, then navigates',
+      (tester) async {
     await tester.pumpWidget(const MyApp());
+    await tester.pump(const Duration(milliseconds: 500));
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text('تموينات غنيمة'), findsOneWidget);
+    expect(find.text('كل اللي تحتاجه، أقرب لك.'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pumpAndSettle();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('تم تحميل التطبيق بنجاح'), findsOneWidget);
+  });
+
+  testWidgets('Placeholder screen shows success message', (tester) async {
+    await tester.pumpWidget(const MaterialApp(home: PlaceholderScreen()));
+    expect(find.text('تم تحميل التطبيق بنجاح'), findsOneWidget);
   });
 }
