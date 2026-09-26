@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../orders/orders_controller.dart';
+import '../../../orders/data/models/order_model.dart';
+import '../../../orders/presentation/screens/order_tracking_screen.dart';
 
 class OrderSuccessScreen extends StatefulWidget {
-  final String orderNumber;
+  final OrderModel order;
+  final OrdersController orders;
   final VoidCallback onBackToHome;
 
   const OrderSuccessScreen({
     super.key,
-    required this.orderNumber,
+    required this.order,
+    required this.orders,
     required this.onBackToHome,
   });
 
@@ -35,8 +40,15 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen>
     super.dispose();
   }
 
-  void _goHome() {
-    widget.onBackToHome();
+  void _openTracking() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => OrderTrackingScreen(
+          order: widget.order,
+          orders: widget.orders,
+        ),
+      ),
+    );
   }
 
   @override
@@ -88,13 +100,14 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen>
                 ),
                 const SizedBox(height: 8),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                   decoration: BoxDecoration(
                     color: AppColors.primary.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Text(
-                    'رقم الطلب: ${widget.orderNumber}',
+                    'رقم الطلب: ${widget.order.id}',
                     style: const TextStyle(
                       fontFamily: AppTextStyles.fontFamily,
                       fontSize: 13,
@@ -116,7 +129,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen>
                 ),
                 const SizedBox(height: 32),
                 GestureDetector(
-                  onTap: _goHome,
+                  onTap: _openTracking,
                   child: Container(
                     height: 52,
                     width: double.infinity,
@@ -130,12 +143,35 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen>
                     ),
                     alignment: Alignment.center,
                     child: const Text(
-                      'العودة للرئيسية',
+                      'تتبع الطلب',
                       style: TextStyle(
                         fontFamily: AppTextStyles.fontFamily,
                         fontSize: 15,
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                GestureDetector(
+                  onTap: widget.onBackToHome,
+                  child: Container(
+                    height: 52,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: AppColors.surface,
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: AppColors.divider),
+                    ),
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'العودة للرئيسية',
+                      style: TextStyle(
+                        fontFamily: AppTextStyles.fontFamily,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textPrimary,
                       ),
                     ),
                   ),

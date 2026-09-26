@@ -4,15 +4,19 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../cart/cart_controller.dart';
 import '../../../favorites/favorite_controller.dart';
 import '../../../favorites/presentation/screens/favorites_screen.dart';
+import '../../../orders/orders_controller.dart';
+import '../../../orders/presentation/screens/orders_screen.dart';
 
 class AccountScreen extends StatelessWidget {
   final FavoriteController favorites;
   final CartController cart;
+  final OrdersController orders;
 
   const AccountScreen({
     super.key,
     required this.favorites,
     required this.cart,
+    required this.orders,
   });
 
   @override
@@ -91,10 +95,18 @@ class AccountScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              const _MenuTile(
-                icon: Icons.receipt_long_outlined,
-                label: 'طلباتي',
-                note: 'قريبًا',
+              ListenableBuilder(
+                listenable: orders,
+                builder: (context, child) => _MenuTile(
+                  icon: Icons.receipt_long_outlined,
+                  label: 'طلباتي',
+                  note: orders.count > 0 ? '${orders.count}' : null,
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => OrdersScreen(orders: orders),
+                    ),
+                  ),
+                ),
               ),
               ListenableBuilder(
                 listenable: favorites,

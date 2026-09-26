@@ -4,6 +4,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../cart/cart_controller.dart';
 import '../../../cart/presentation/screens/cart_screen.dart';
 import '../../../favorites/favorite_controller.dart';
+import '../../../orders/orders_controller.dart';
 import '../../data/home_repository.dart';
 import '../../data/models/category.dart';
 import '../../data/models/offer.dart';
@@ -15,12 +16,14 @@ import '../widgets/product_card.dart';
 class HomeScreen extends StatefulWidget {
   final CartController cart;
   final FavoriteController favorites;
+  final OrdersController orders;
   final ValueNotifier<String?>? externalCategoryFilter;
 
   const HomeScreen({
     super.key,
     required this.cart,
     required this.favorites,
+    required this.orders,
     this.externalCategoryFilter,
   });
 
@@ -75,7 +78,12 @@ class _HomeScreenState extends State<HomeScreen>
 
   void _openCart() {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => CartScreen(cart: widget.cart)),
+      MaterialPageRoute(
+        builder: (context) => CartScreen(
+          cart: widget.cart,
+          orders: widget.orders,
+        ),
+      ),
     );
   }
 

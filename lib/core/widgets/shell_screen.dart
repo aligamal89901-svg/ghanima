@@ -5,6 +5,7 @@ import '../../features/cart/presentation/screens/cart_screen.dart';
 import '../../features/favorites/favorite_controller.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/home/presentation/screens/offers/offers_screen.dart';
+import '../../features/orders/orders_controller.dart';
 import '../theme/app_theme.dart';
 import 'floating_bottom_nav.dart';
 
@@ -28,6 +29,7 @@ class _ShellScreenState extends State<ShellScreen>
     with SingleTickerProviderStateMixin {
   late int _index;
   final ValueNotifier<String?> _homeCategoryFilter = ValueNotifier<String?>(null);
+  final OrdersController _orders = OrdersController();
   late AnimationController _transitionController;
   late Animation<double> _fade;
   late Animation<double> _scale;
@@ -53,6 +55,7 @@ class _ShellScreenState extends State<ShellScreen>
   void dispose() {
     _transitionController.dispose();
     _homeCategoryFilter.dispose();
+    _orders.dispose();
     super.dispose();
   }
 
@@ -87,16 +90,22 @@ class _ShellScreenState extends State<ShellScreen>
               HomeScreen(
                 cart: widget.cart,
                 favorites: widget.favorites,
+                orders: _orders,
                 externalCategoryFilter: _homeCategoryFilter,
               ),
               OffersScreen(cart: widget.cart, onShopOffer: _shopOffer),
               CartScreen(
                 cart: widget.cart,
+                orders: _orders,
                 embedded: true,
                 onBrowseProducts: () => _changeTab(0),
                 onBackToHome: _backToHomeFromCart,
               ),
-              AccountScreen(favorites: widget.favorites, cart: widget.cart),
+              AccountScreen(
+                favorites: widget.favorites,
+                cart: widget.cart,
+                orders: _orders,
+              ),
             ],
           ),
         ),

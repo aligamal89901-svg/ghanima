@@ -3,11 +3,13 @@ import '../../../../core/app_constants.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../home/data/home_repository.dart';
 import '../../../home/data/models/category.dart';
+import '../../../orders/orders_controller.dart';
 import '../../cart_controller.dart';
 import 'order_success_screen.dart';
 
 class CartScreen extends StatefulWidget {
   final CartController cart;
+  final OrdersController orders;
   final bool embedded;
   final VoidCallback? onBrowseProducts;
   final VoidCallback? onBackToHome;
@@ -15,6 +17,7 @@ class CartScreen extends StatefulWidget {
   const CartScreen({
     super.key,
     required this.cart,
+    required this.orders,
     this.embedded = false,
     this.onBrowseProducts,
     this.onBackToHome,
@@ -54,12 +57,16 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   void _placeOrder() {
-    final orderNumber = 'G-${DateTime.now().millisecondsSinceEpoch % 100000}';
+    final order = widget.orders.placeOrder(
+      items: widget.cart.items,
+      total: widget.cart.totalPrice,
+    );
     widget.cart.clear();
-    Navigator.of(context).push(
+    Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) => OrderSuccessScreen(
-          orderNumber: orderNumber,
+          order: order,
+          orders: widget.orders,
           onBackToHome: widget.onBackToHome ??
               () => Navigator.of(context).popUntil((route) => route.isFirst),
         ),
