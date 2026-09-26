@@ -13,6 +13,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   lottie: ^3.1.0
   font_awesome_flutter: ^11.0.0
+  url_launcher: ^6.3.2
 
 dev_dependencies:
   flutter_test:
@@ -24,6 +25,7 @@ flutter:
 
   assets:
     - assets/animations/splash/splash_animation.json
+    - assets/images/
 
   fonts:
     - family: IBM Plex Sans Arabic

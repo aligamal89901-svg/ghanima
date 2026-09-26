@@ -6,6 +6,7 @@ import '../../../favorites/favorite_controller.dart';
 import '../../../favorites/presentation/screens/favorites_screen.dart';
 import '../../../orders/orders_controller.dart';
 import '../../../orders/presentation/screens/orders_screen.dart';
+import '../../../store_info/presentation/screens/store_info_screen.dart';
 
 class AccountScreen extends StatelessWidget {
   final FavoriteController favorites;
@@ -124,10 +125,15 @@ class AccountScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const _MenuTile(
-                icon: Icons.location_on_outlined,
-                label: 'عنوان الاستلام',
-                note: 'المتجر',
+              _MenuTile(
+                icon: Icons.storefront_outlined,
+                label: 'معلومات المتجر',
+                note: 'القطن',
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const StoreInfoScreen(),
+                  ),
+                ),
               ),
               const _MenuTile(
                 icon: Icons.language_outlined,
